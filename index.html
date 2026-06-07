@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>모요 Growth 전략 제안 ｜ 면접 발표</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  :root{
+    --ink:#191f28; --charcoal:#3f4750; --gray:#868e96; --faint:#adb5bd; --line:#edeff2;
+    --indigo:#516aec; --indigo-d:#3a52cc; --indigo-l:#7086fb; --indigo-bg:#eef1ff;
+    --red:#fa5252; --red-d:#e03e3e; --red-bg:#fff0f0;
+    --tint:#f7f8fa; --green:#1aab8a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body{font-family:'Pretendard','Pretendard Variable',-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:var(--charcoal);background:#dcdfe4;line-height:1.55;}
+  .hint{position:fixed;top:14px;right:14px;z-index:99;background:var(--indigo);color:#fff;font-size:13px;padding:9px 14px;border-radius:30px;box-shadow:0 4px 16px rgba(81,106,236,.3);}
+  .hint b{color:#fff;text-decoration:underline;}
+  .deck{display:flex;flex-direction:column;align-items:center;gap:26px;padding:40px 0 64px;}
+  .slide{width:1280px;height:720px;background:#fff;position:relative;overflow:hidden;padding:46px 60px 54px;box-shadow:0 12px 44px rgba(25,31,40,.14);display:flex;flex-direction:column;}
+
+  /* stepper */
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex:0 0 auto;}
+  .stepper{display:flex;align-items:center;}
+  .step{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--faint);}
+  .step .n{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:#eef0f3;color:var(--faint);}
+  .step.done{color:var(--indigo-d);} .step.done .n{background:var(--indigo-bg);color:var(--indigo-d);}
+  .step.active{color:var(--ink);} .step.active .n{background:var(--indigo);color:#fff;box-shadow:0 0 0 4px var(--indigo-bg);}
+  .sep{width:30px;height:2px;background:#e6e8ec;margin:0 12px;border-radius:2px;}
+  .brandtag{font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--faint);}
+  .brandtag b{color:var(--indigo);}
+
+  .lede{font-size:14px;color:var(--gray);font-weight:700;margin-bottom:5px;}
+  .stitle{font-size:35px;font-weight:800;color:var(--ink);letter-spacing:-1.1px;line-height:1.24;}
+  .stitle .i{color:var(--indigo);} .stitle .r{color:var(--red-d);}
+  .body{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;}
+  .take{font-size:18px;font-weight:700;color:var(--ink);line-height:1.5;}
+  .take .hi{background:linear-gradient(transparent 58%,var(--indigo-bg) 58%);padding:0 3px;}
+  .take .hir{background:linear-gradient(transparent 58%,var(--red-bg) 58%);padding:0 3px;}
+  .pageno{position:absolute;right:60px;bottom:26px;font-size:12px;color:var(--faint);font-weight:700;}
+  b.k{font-weight:800;color:var(--ink);}
+  .i{color:var(--indigo);} .r{color:var(--red-d);}
+
+  .row{display:flex;gap:18px;}
+  .col{flex:1;min-width:0;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:0 2px 10px rgba(25,31,40,.04);}
+  .card.tint{background:var(--tint);box-shadow:none;}
+  .card h3{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+  .card p{font-size:14px;color:#5b636b;}
+  ul.clean{list-style:none;} ul.clean li{position:relative;padding-left:19px;font-size:14px;color:#525a62;margin:8px 0;}
+  ul.clean li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:var(--indigo);}
+  .tag{display:inline-block;font-size:11.5px;font-weight:800;padding:4px 11px;border-radius:20px;}
+  .tag.i{background:var(--indigo-bg);color:var(--indigo-d);} .tag.r{background:var(--red-bg);color:var(--red-d);} .tag.g{background:#eafaf5;color:var(--green);}
+  .big{font-size:42px;font-weight:800;color:var(--indigo);letter-spacing:-1.5px;line-height:1;}
+  .big .u{font-size:16px;font-weight:700;color:var(--gray);letter-spacing:0;}
+  .num-l{font-size:13px;color:#5b636b;margin-top:8px;font-weight:600;}
+  .src{font-size:10.5px;color:var(--faint);}
+  .note{font-size:11px;color:var(--faint);margin-top:12px;}
+
+  /* cover */
+  .cover{padding:0;flex-direction:row;}
+  .cover .left{flex:1.32;padding:0 58px;display:flex;flex-direction:column;justify-content:center;}
+  .cover .right{flex:.92;background:var(--indigo-bg);display:flex;align-items:center;justify-content:center;padding:34px;}
+  .cover .right img{width:100%;border-radius:16px;box-shadow:0 14px 36px rgba(81,106,236,.22);}
+  .eyebrow{font-size:13px;font-weight:800;letter-spacing:2.5px;color:var(--indigo);margin-bottom:24px;}
+  .cover h1{font-size:40px;font-weight:800;color:var(--ink);letter-spacing:-1.6px;line-height:1.32;}
+  .cover h1 .i{color:var(--indigo);}
+  .cover .spine{margin-top:24px;font-size:18px;font-weight:700;color:var(--charcoal);line-height:1.5;border-left:4px solid var(--indigo);padding-left:15px;}
+  .cover .spine b{color:var(--indigo);}
+  .cover .meta{margin-top:46px;font-size:13.5px;color:var(--gray);}
+  .cover .meta b{color:var(--charcoal);}
+
+  /* summary 4 */
+  .sumgrid{display:flex;gap:14px;}
+  .sumgrid .card{flex:1;border-top:4px solid var(--indigo);}
+  .sumgrid .card:nth-child(2){border-top-color:var(--red);}
+  .sumgrid .card:nth-child(3){border-top-color:var(--indigo-l);}
+  .sumgrid .card:nth-child(4){border-top-color:var(--green);}
+  .sumgrid h3{font-size:14px;color:var(--gray);}
+  .sumgrid p{font-size:14.5px;color:var(--ink);font-weight:600;margin-top:6px;}
+
+  /* stat cards */
+  .stats{display:flex;gap:13px;flex-wrap:wrap;}
+  .stat{flex:1;min-width:0;background:var(--tint);border-radius:16px;padding:18px 16px;text-align:center;}
+
+  /* bm flow */
+  .flow{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:16px;}
+  .fbox{background:var(--indigo-bg);color:var(--indigo-d);font-weight:800;font-size:14px;border-radius:30px;padding:9px 20px;}
+  .farr{color:var(--faint);font-weight:800;font-size:18px;}
+  .bmcard{flex:1;border-radius:18px;border:1px solid var(--line);padding:18px 20px;box-shadow:0 2px 10px rgba(25,31,40,.04);}
+  .bmcard .nm{display:flex;align-items:center;gap:9px;margin-bottom:8px;}
+  .bmcard .ic{width:30px;height:30px;border-radius:9px;background:var(--indigo);color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px;flex:0 0 auto;}
+  .bmcard h3{font-size:15.5px;font-weight:800;color:var(--ink);}
+
+  /* bottleneck */
+  .btl{display:flex;gap:14px;}
+  .btlc{flex:1;border-radius:18px;padding:18px 18px;border:1px solid var(--line);background:#fff;box-shadow:0 2px 10px rgba(25,31,40,.04);}
+  .btlc .hd{display:flex;align-items:center;gap:8px;margin-bottom:9px;}
+  .btlc .bn{width:24px;height:24px;border-radius:8px;background:var(--red-bg);color:var(--red-d);display:grid;place-items:center;font-weight:800;font-size:12px;}
+  .btlc h3{font-size:15px;font-weight:800;color:var(--ink);}
+  .btlc p{font-size:12.5px;color:#5b636b;line-height:1.5;}
+  .btlc .m{font-size:11px;font-weight:800;color:var(--red-d);margin-top:8px;display:block;}
+
+  /* strategy slide */
+  .strathead{display:flex;align-items:center;gap:14px;background:var(--indigo-bg);border-radius:16px;padding:14px 20px;margin-bottom:18px;}
+  .strathead .b{background:var(--red);color:#fff;font-size:12px;font-weight:800;padding:5px 12px;border-radius:20px;flex:0 0 auto;}
+  .strathead .t{font-size:15px;font-weight:700;color:var(--charcoal);}
+  .strathead .t b{color:var(--indigo-d);}
+  .actcard{flex:1;border-radius:16px;border:1px solid var(--line);padding:18px 20px;box-shadow:0 2px 10px rgba(25,31,40,.04);}
+  .actcard h3{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+  .actcard .tagrow{margin-bottom:8px;}
+  .msg{background:var(--ink);border-radius:14px;padding:14px 18px;color:#fff;font-size:14px;line-height:1.5;margin-top:10px;}
+  .msg b{color:var(--indigo-l);}
+
+  /* roadmap */
+  .phase{display:flex;gap:14px;}
+  .pc{flex:1;border-radius:18px;padding:18px 18px;border:1px solid var(--line);}
+  .pc.p1{background:var(--indigo-bg);border-color:#d4dbff;}
+  .pc.p2{background:var(--tint);}
+  .pc.p3{background:var(--tint);}
+  .pc . pn{}
+  .pn{font-size:11.5px;font-weight:800;color:#fff;background:var(--indigo);padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:10px;}
+  .p2 .pn,.p3 .pn{background:var(--indigo-l);}
+  .pc h3{font-size:15.5px;font-weight:800;color:var(--ink);margin-bottom:7px;}
+  .pc li{font-size:12.5px;color:#525a62;margin:5px 0;padding-left:15px;position:relative;list-style:none;}
+  .pc li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--indigo);}
+  .arr2{display:flex;align-items:center;color:var(--faint);font-size:22px;font-weight:800;}
+
+  table.kpi{width:100%;border-collapse:collapse;font-size:13.5px;}
+  table.kpi th,table.kpi td{border-bottom:1px solid var(--line);padding:13px 14px;text-align:left;vertical-align:middle;}
+  table.kpi th{background:var(--indigo);color:#fff;font-weight:700;font-size:12.5px;border:none;}
+  table.kpi tr td:first-child{font-weight:800;color:var(--indigo-d);width:30%;}
+  table.kpi tbody tr:nth-child(even){background:var(--tint);}
+
+  @media print{
+    body{background:#fff;} .hint{display:none;}
+    .deck{gap:0;padding:0;}
+    .slide{box-shadow:none;page-break-after:always;break-after:page;}
+    @page{size:1280px 720px;margin:0;}
+  }
+</style>
+</head>
+<body>
+<div class="hint">키보드 <b>Ctrl/⌘+P</b> → "PDF로 저장", 용지 가로 → 12p PDF 완성</div>
+<div class="deck">
+
+<!-- 1 COVER -->
+<section class="slide cover">
+  <div class="left">
+    <div class="eyebrow">MOYO ｜ GROWTH 전략 제안 · 면접 발표</div>
+    <h1>모두에게 통신을 쉽게.<br>그 다음, 모요는<br><span class="i">어떻게 더 클까?</span></h1>
+    <div class="spine">단순 가입중개(CPA) 마케팅에서<br><b>→ 통신 데이터 기반 CRM·브랜딩</b>으로</div>
+    <div class="meta"><b>이도형</b> ｜ 2026 ｜ 현황 → 진단 → 전략 → 실행</div>
+  </div>
+  <div class="right"><img src="images/moyo-home.jpeg" alt="모요 서비스"></div>
+</section>
+
+<!-- 2 EXECUTIVE SUMMARY -->
+<section class="slide">
+  <div class="topbar"><div class="stepper"><span class="step active"><span class="n">＝</span>한 장 요약</span></div><span class="brandtag"><b>moyo</b> ╳ 이도형</span></div>
+  <div class="lede">EXECUTIVE SUMMARY</div>
+  <h1 class="stitle">'요금제 바꿀 때만 찾는 앱'에서 → <span class="i">통신 라이프를 락인하는 슈퍼앱</span>으로</h1>
+  <div class="body">
+    <div class="sumgrid">
+      <div class="card"><h3>① 현황</h3><p>알뜰폰 비교 대표 플랫폼. 연 <b class="k">80만 개통</b>·매출 <b class="k">100억·BEP 달성</b>으로 PMF 검증 완료.</p></div>
+      <div class="card"><h3>② 핵심 과제</h3><p>CPA 가입중개 중심 성장의 <b class="k">4대 병목</b>(리텐션·외부의존·빅테크·MNO확장) 돌파.</p></div>
+      <div class="card"><h3>③ 4대 전략</h3><p>CRM 락인 · 단독 PB 혜택 · 전문 커뮤니티/SEO · 로컬 역번들링.</p></div>
+      <div class="card"><h3>④ 목표</h3><p>고객 통신 여정 전체를 소유하는 <b class="k">'통신 데이터 플랫폼'</b>으로 리포지셔닝.</p></div>
+    </div>
+    <p class="take" style="margin-top:24px;">빅테크가 통신을 <span class="hir">금융의 부가기능</span>으로 다룰 때, 모요는 <span class="hi">'통신 전문성 × 가입 타이밍 데이터'</span>라는 고유 무기로 승부한다.</p>
+  </div>
+  <div class="pageno">02 / 12</div>
+</section>
+
+<!-- 3 시장 & 트랙션 -->
+<section class="slide">
+  <div class="topbar">
+    <div class="stepper">
+      <span class="step active"><span class="n">1</span>현황</span><span class="sep"></span>
+      <span class="step"><span class="n">2</span>진단</span><span class="sep"></span>
+      <span class="step"><span class="n">3</span>전략</span><span class="sep"></span>
+      <span class="step"><span class="n">4</span>실행</span>
+    </div><span class="brandtag">현황 분석</span>
+  </div>
+  <div class="lede">현황 ① ｜ 시장 & 모요 트랙션</div>
+  <h1 class="stitle">시장은 <span class="i">1,000만</span>을 넘었고, 모요는 <span class="i">PMF</span>를 증명했다</h1>
+  <div class="body">
+    <p style="font-size:13px;font-weight:800;color:var(--gray);margin-bottom:9px;">알뜰폰 시장</p>
+    <div class="stats">
+      <div class="stat"><div class="big">1,011<span class="u">만 명</span></div><div class="num-l">알뜰폰 가입자 (2025.6, 사상 첫 1천만)</div></div>
+      <div class="stat"><div class="big">17.6<span class="u">%</span></div><div class="num-l">휴대폰 회선 점유율</div></div>
+      <div class="stat"><div class="big">−52<span class="u">%</span></div><div class="num-l">도매대가 인하(종량제) — 마진 변동 요인</div></div>
+    </div>
+    <p style="font-size:13px;font-weight:800;color:var(--gray);margin:16px 0 9px;">모요 트랙션</p>
+    <div class="stats">
+      <div class="stat"><div class="big">80<span class="u">만 건</span></div><div class="num-l">연간 개통 (회사 발표)</div></div>
+      <div class="stat"><div class="big">~10<span class="u">%</span></div><div class="num-l">알뜰폰 번호이동 모요 경유 (2023)</div></div>
+      <div class="stat"><div class="big">100<span class="u">억·BEP</span></div><div class="num-l">2025 매출·손익분기 달성</div></div>
+      <div class="stat"><div class="big">36<span class="u">개사</span></div><div class="num-l">제휴 통신사·요금제 1,700+</div></div>
+    </div>
+    <p class="note">출처: 이코노믹데일리·전자신문(시장) / 모요 채용·기업소개·블로터(트랙션). 일부 수치는 시점·자사 발표 기준.</p>
+  </div>
+  <div class="pageno">03 / 12</div>
+</section>
+
+<!-- 4 비즈니스 모델 -->
+<section class="slide">
+  <div class="topbar">
+    <div class="stepper">
+      <span class="step active"><span class="n">1</span>현황</span><span class="sep"></span>
+      <span class="step"><span class="n">2</span>진단</span><span class="sep"></span>
+      <span class="step"><span class="n">3</span>전략</span><span class="sep"></span>
+      <span class="step"><span class="n">4</span>실행</span>
+    </div><span class="brandtag">현황 분석</span>
+  </div>
+  <div class="lede">현황 ② ｜ 비즈니스 모델</div>
+  <h1 class="stitle">트래픽을 모아 파트너에게 가치를 주고 <span class="i">수수료</span>를 번다</h1>
+  <div class="body">
+    <div class="flow"><span class="fbox">사용자 트래픽 결집</span><span class="farr">→</span><span class="fbox">파트너사에 가치 제공</span><span class="farr">→</span><span class="fbox">수수료·광고 수익</span></div>
+    <div class="row">
+      <div class="bmcard"><div class="nm"><span class="ic">1</span><h3>개통 중개 · 마케팅 (Core)</h3></div>
+        <ul class="clean">
+          <li><b class="k">CPA 수수료</b> — 비교 후 개통 시 MVNO에서 중개비 수취</li>
+          <li><b class="k">노출·광고</b> — 상단/기획전/독점 노출 구좌 판매</li>
+        </ul></div>
+      <div class="bmcard"><div class="nm"><span class="ic">2</span><h3>B2B 개통 솔루션 (SaaS)</h3></div>
+        <ul class="clean">
+          <li>전산이 약한 중소 MVNO에 <b class="k">개통 자동화·효율화</b> 솔루션 제공</li>
+          <li>파트너십 고착 → 공급 안정화</li>
+        </ul></div>
+      <div class="bmcard"><div class="nm"><span class="ic">3</span><h3>크로스셀 (Cross-sell)</h3></div>
+        <ul class="clean">
+          <li><b class="k">자급제·중고폰</b> 매칭 커미션</li>
+          <li><b class="k">인터넷·TV 결합</b> / 제휴카드 발급 중개</li>
+        </ul></div>
+    </div>
+    <p class="take" style="margin-top:18px;">탄탄한 중개 구조 위에, 최근 <span class="hi">통신 3사(MNO)·인터넷·단말까지 잇는 '통신 슈퍼앱'</span>으로 확장 중.</p>
+  </div>
+  <div class="pageno">04 / 12</div>
+</section>
+
+<!-- 5 4대 병목 진단 -->
+<section class="slide">
+  <div class="topbar">
+    <div class="stepper">
+      <span class="step done"><span class="n">✓</span>현황</span><span class="sep"></span>
+      <span class="step active"><span class="n">2</span>진단</span><span class="sep"></span>
+      <span class="step"><span class="n">3</span>전략</span><span class="sep"></span>
+      <span class="step"><span class="n">4</span>실행</span>
+    </div><span class="brandtag">병목 진단</span>
+  </div>
+  <div class="lede">진단 ｜ 4대 성장 병목</div>
+  <h1 class="stitle">잘 컸지만, <span class="r">다음 단계</span>를 막는 4가지가 뚜렷하다</h1>
+  <div class="body">
+    <div class="btl">
+      <div class="btlc"><div class="hd"><span class="bn">1</span><h3>낮은 리텐션</h3></div>
+        <p>요금제는 매일 쓰는 서비스가 아님. <b class="k">7~8개월·번호이동 때만</b> 방문.</p>
+        <span class="m">CAC &gt; LTV — 재유입 비용 반복</span></div>
+      <div class="btlc"><div class="hd"><span class="bn">2</span><h3>외부 정책 의존</h3></div>
+        <p>도매대가·정부 정책에 핵심 무기 <b class="k">'0원 요금제' 공급</b>이 좌우됨.</p>
+        <span class="m">도매대가 −52%·0원 수익성 잠식</span></div>
+      <div class="btlc"><div class="hd"><span class="bn">3</span><h3>빅테크 경쟁</h3></div>
+        <p>토스모바일·KB리브엠·카카오가 자체 MVNO+비교 내재화.</p>
+        <span class="m">토스 19.2만 · KB 43.7만 가입</span></div>
+      <div class="btlc"><div class="hd"><span class="bn">4</span><h3>MNO 확장 한계</h3></div>
+        <p>통신 3사는 <b class="k">오프라인 '성지' 유통</b>·단통법으로 온라인 표준화 난이도↑.</p>
+        <span class="m">불투명 유통 = UX 흡수 난제</span></div>
+    </div>
+    <p class="take" style="margin-top:20px;">핵심은 <span class="hi">"한 번 가입시키고 끝"</span>인 구조 → <span class="hi">"고객 통신 여정을 계속 소유"</span>하는 구조로 바꾸는 것.</p>
+  </div>
+  <div class="pageno">05 / 12</div>
+</section>
+
+<!-- 6 전략1 CRM -->
+<section class="slide">
+  <div class="topbar">
+    <div class="stepper">
+      <span class="step done"><span class="n">✓</span>현황</span><span class="sep"></span>
+      <span class="step done"><span class="n">✓</span>진단</span><span class="sep"></span>
+      <span class="step active"><span class="n">3</span>전략</span><span class="sep"></span>
+      <span class="step"><span class="n">4</span>실행</span>
+    </div><span class="brandtag">전략 1/4</span>
+  </div>
+  <div class="lede">전략 ① ｜ 병목: 낮은 리텐션</div>
+  <h1 class="stitle">7개월 주기를 깬다 — <span class="i">'통신비 자산관리' CRM</span></h1>
+  <div class="body">
+    <div class="strathead"><span class="b">리포지셔닝</span><span class="t">"요금제 바꾸는 곳" → <b>"내 통신비를 실시간으로 감시·절약해 주는 자산관리 플랫폼"</b></span></div>
+    <div class="row">
+      <div class="actcard"><div class="tagrow"><span class="tag i">예측형 CRM</span></div>
+        <h3>약정·프로모션 종료 전 자동 푸시</h3>
+        <p style="font-size:13.5px;">가입일 데이터로 <b class="k">종료 1개월·1주 전</b> 알림톡/푸시 시퀀스 자동화.</p>
+        <div class="msg">"OO님, 다음 달이면 0원 프로모션이 끝나 <b>38,500원</b>이 청구돼요. 지금 갈아타면 <b>연 46만원</b> 절약!"</div>
+      </div>
+      <div class="actcard"><div class="tagrow"><span class="tag i">상시 방문 유도</span></div>
+        <h3>'통신 가성비 점수' 탭</h3>
+        <p style="font-size:13.5px;">토스 신용점수처럼, 현재 요금제·데이터 사용량을 분석해 <b class="k">상시 점수·절약 가능액</b>을 시각화.</p>
+        <ul class="clean">
+          <li>매주 점수 확인하러 재방문 → 앱 삭제 방지</li>
+          <li>'더 아낄 수 있는 금액' = 전환 트리거</li>
+        </ul>
+      </div>
+    </div>
+    <p class="take" style="margin-top:16px;">이미 보유한 <span class="hi">가입 타이밍 데이터</span>로 당장 시작 가능 — 가장 빠른 Quick Win.</p>
+  </div>
+  <div class="pageno">06 / 12</div>
+</section>
+
+<!-- 7 전략2 PB -->
+<section class="slide">
+  <div class="topbar">
+    <div class="stepper">
+      <span class="step done"><span class="n">✓</span>현황</span><span class="sep"></span>
+      <span class="step done"><span class="n">✓</span>진단</span><span class="sep"></span>
+      <span class="step active"><span class="n">3</span>전략</span><span class="sep"></span>
+      <span class="step"><span class="n">4</span>실행</span>
+    </div><span class="brandtag">전략 2/4</span>
+  </div>
+  <div class="lede">전략 ② ｜ 병목: 외부 정책 의존</div>
+  <h1 class="stitle">0원이 사라져도 흔들리지 않는 <span class="i">'모요 단독 혜택'</span></h1>
+  <div class="body">
+    <div class="strathead"><span class="b">가치 전환</span><span class="t">가격 경쟁 → <b>모요에서만 주는 독점 혜택(Value-add)</b> 중심 브랜딩</span></div>
+    <div class="row">
+      <div class="actcard" style="flex:1.1;"><div class="tagrow"><span class="tag i">단독 PB 요금제</span></div>
+        <h3>라이프스타일 결합형 제휴 요금제</h3>
+        <p style="font-size:13.5px;">중소 MVNO와 협업해 단순 사은품이 아닌 <b class="k">리텐션을 높이는 구독 혜택</b>을 결합.</p>
+        <div class="row" style="gap:10px;margin-top:12px;">
+          <div class="card tint" style="padding:12px;text-align:center;flex:1;"><div style="font-weight:800;color:var(--indigo-d);font-size:13px;">배민 상품권</div><p style="font-size:11px;">결합 요금제</p></div>
+          <div class="card tint" style="padding:12px;text-align:center;flex:1;"><div style="font-weight:800;color:var(--indigo-d);font-size:13px;">네이버페이</div><p style="font-size:11px;">상시 적립</p></div>
+          <div class="card tint" style="padding:12px;text-align:center;flex:1;"><div style="font-weight:800;color:var(--indigo-d);font-size:13px;">OTT·독서</div><p style="font-size:11px;">구독권 결합</p></div>
+        </div>
+      </div>
+      <div class="actcard"><div class="tagrow"><span class="tag r">방어 효과</span></div>
+        <h3>외부 정책 방어벽</h3>
+        <ul class="clean">
+          <li>보조금·도매대가가 흔들려도 <b class="k">독점 혜택은 유지</b></li>
+          <li>"모요에서 가입하면 <b class="k">매달 네이버페이 적립</b>"을 전면에</li>
+          <li>가격이 아닌 <b class="k">혜택으로 기억</b>되는 브랜드</li>
+        </ul>
+      </div>
+    </div>
+    <p class="take" style="margin-top:16px;">정책 리스크를 <span class="hi">모요만의 협상력·제휴 자산</span>으로 흡수한다.</p>
+  </div>
+  <div class="pageno">07 / 12</div>
+</section>
+
+<!-- 8 전략3 커뮤니티+SEO -->
+<section class="slide">
+  <div class="topbar">
+    <div class="stepper">
+      <span class="step done"><span class="n">✓</span>현황</span><span class="sep"></span>
+      <span class="step done"><span class="n">✓</span>진단</span><span class="sep"></span>
+      <span class="step active"><span class="n">3</span>전략</span><span class="sep"></span>
+      <span class="step"><span class="n">4</span>실행</span>
+    </div><span class="brandtag">전략 3/4</span>
+  </div>
+  <div class="lede">전략 ③ ｜ 병목: 빅테크 경쟁</div>
+  <h1 class="stitle">빅테크가 못 가진 무기 — <span class="i">'통신 초전문성' 커뮤니티 + SEO</span></h1>
+  <div class="body">
+    <div class="strathead"><span class="b">차별점</span><span class="t">빅테크는 통신을 <b style="color:var(--red-d)">금융의 부가기능</b>으로 다룸 / 모요는 <b>통신 전문 플랫폼</b></span></div>
+    <div class="row">
+      <div class="actcard"><div class="tagrow"><span class="tag i">커뮤니티 빌딩</span></div>
+        <h3>'모요 라운지' — 고관여 집단지성</h3>
+        <p style="font-size:13.5px;">대기업 금융앱이 못 채우는 헤비유저 공간:</p>
+        <ul class="clean">
+          <li><b class="k">망 품질·테더링·소액결제</b> 꼼꼼한 정보 교환</li>
+          <li>디시 알뜰폰 갤러리를 대체하는 앱 내 UGC 허브</li>
+        </ul>
+      </div>
+      <div class="actcard"><div class="tagrow"><span class="tag g">CAC 절감</span></div>
+        <h3>UGC → SEO 오가닉 선점</h3>
+        <ul class="clean">
+          <li>양질의 UGC가 쌓이며 <b class="k">구글·네이버 검색 트래픽 독점</b></li>
+          <li>광고비(CAC) 없이 <b class="k">잠재고객을 빅테크보다 먼저</b> 확보</li>
+          <li>'통신 = 모요'라는 카테고리 권위 구축</li>
+        </ul>
+      </div>
+    </div>
+    <p class="take" style="margin-top:16px;">자본력 경쟁이 아니라 <span class="hi">전문성·신뢰의 깊이</span>로 이긴다.</p>
+  </div>
+  <div class="pageno">08 / 12</div>
+</section>
+
+<!-- 9 전략4 로컬 역번들링 -->
+<section class="slide">
+  <div class="topbar">
+    <div class="stepper">
+      <span class="step done"><span class="n">✓</span>현황</span><span class="sep"></span>
+      <span class="step done"><span class="n">✓</span>진단</span><span class="sep"></span>
+      <span class="step active"><span class="n">3</span>전략</span><span class="sep"></span>
+      <span class="step"><span class="n">4</span>실행</span>
+    </div><span class="brandtag">전략 4/4</span>
+  </div>
+  <div class="lede">전략 ④ ｜ 병목: MNO 확장 한계</div>
+  <h1 class="stitle">음지의 '성지' 가격을 양지로 — <span class="i">로컬 역번들링</span></h1>
+  <div class="body">
+    <div class="strathead"><span class="b">확장 전략</span><span class="t">오프라인 성지의 불투명한 가격을 <b>온라인으로 투명하게</b> 끌어올려 MNO 시장 진입</span></div>
+    <div class="row">
+      <div class="actcard"><div class="tagrow"><span class="tag i">하이퍼 로컬</span></div>
+        <h3>'내 주변 성지 시세표'</h3>
+        <p style="font-size:13.5px;">당근마켓 로컬 타깃팅 벤치마킹 —</p>
+        <div class="msg" style="background:var(--indigo-bg);color:var(--indigo-d);">"지금 <b style="color:var(--indigo-d)">OO동</b>에서 제일 싼 아이폰17 + 통신 3사 지원금 매장 확인하기"</div>
+      </div>
+      <div class="actcard"><div class="tagrow"><span class="tag g">리드젠</span></div>
+        <h3>비교 시뮬레이터 → 전환</h3>
+        <ul class="clean">
+          <li>성지 진입 유저에게 <b class="k">방문 예약 폼</b>(Lead Gen) 연결</li>
+          <li><b class="k">자급제+알뜰폰 vs 성지</b> 실시간 가성비 비교</li>
+          <li>어떤 선택을 하든 <b class="k">모요 안에서 완결</b></li>
+        </ul>
+      </div>
+    </div>
+    <p class="take" style="margin-top:16px;">"투명한 비교"라는 모요의 본질을 <span class="hi">MNO 시장으로 그대로 확장</span>한다.</p>
+  </div>
+  <div class="pageno">09 / 12</div>
+</section>
+
+<!-- 10 로드맵 -->
+<section class="slide">
+  <div class="topbar">
+    <div class="stepper">
+      <span class="step done"><span class="n">✓</span>현황</span><span class="sep"></span>
+      <span class="step done"><span class="n">✓</span>진단</span><span class="sep"></span>
+      <span class="step done"><span class="n">✓</span>전략</span><span class="sep"></span>
+      <span class="step active"><span class="n">4</span>실행</span>
+    </div><span class="brandtag">실행</span>
+  </div>
+  <div class="lede">실행 ① ｜ 우선순위 & 로드맵</div>
+  <h1 class="stitle">보유 데이터로 <span class="i">당장 되는 것</span>부터 — 단계적 전환</h1>
+  <div class="body">
+    <div class="phase">
+      <div class="pc p1"><span class="pn">0–3개월 · Quick Win</span><h3>리텐션 CRM 가동</h3>
+        <ul><li>약정·프로모션 종료 예측 푸시 자동화</li><li>'통신 가성비 점수' 베타</li><li>기존 데이터로 즉시 ROI</li></ul></div>
+      <div class="arr2">→</div>
+      <div class="pc p2"><span class="pn">3–6개월 · 구조 전환</span><h3>독점 자산 구축</h3>
+        <ul><li>모요 단독 PB 요금제 론칭</li><li>'모요 라운지' 커뮤니티·SEO 콘텐츠</li><li>가격→혜택·전문성으로 축 이동</li></ul></div>
+      <div class="arr2">→</div>
+      <div class="pc p3"><span class="pn">6–12개월 · 확장</span><h3>슈퍼앱 도약</h3>
+        <ul><li>MNO 성지 시세표·로컬 역번들링</li><li>인터넷·단말 결합 확대</li><li>통신 슈퍼앱 발판</li></ul></div>
+    </div>
+    <p class="take" style="margin-top:22px;">우선순위 원칙 — <span class="hi">① 추가 투자 없이 보유 자산으로 즉시 가능</span>한 리텐션 CRM부터, 그 현금흐름으로 구조 전환·확장에 재투자.</p>
+  </div>
+  <div class="pageno">10 / 12</div>
+</section>
+
+<!-- 11 KPI -->
+<section class="slide">
+  <div class="topbar">
+    <div class="stepper">
+      <span class="step done"><span class="n">✓</span>현황</span><span class="sep"></span>
+      <span class="step done"><span class="n">✓</span>진단</span><span class="sep"></span>
+      <span class="step done"><span class="n">✓</span>전략</span><span class="sep"></span>
+      <span class="step active"><span class="n">4</span>실행</span>
+    </div><span class="brandtag">실행</span>
+  </div>
+  <div class="lede">실행 ② ｜ KPI 대시보드</div>
+  <h1 class="stitle">무엇을 보고 <span class="i">성공을 판단</span>할 것인가</h1>
+  <div class="body">
+    <table class="kpi">
+      <tr><th>전략 방향</th><th>핵심 측정 지표 (KPIs)</th><th>의미</th></tr>
+      <tr><td>리텐션 강화</td><td>가입 6개월 후 재방문율 · DAU/MAU · 앱 삭제율</td><td>주기 파괴 여부</td></tr>
+      <tr><td>CRM 고도화</td><td>알림톡·푸시 오픈율 · CRM 경유 요금제 전환율</td><td>데이터 마케팅 효율</td></tr>
+      <tr><td>트래픽 자생력</td><td>SEO 오가닉 유입 비중 · 커뮤니티 일일 작성 글 수</td><td>CAC 의존 탈피</td></tr>
+      <tr><td>MNO 확장</td><td>성지 시세표 조회수 · 매장 방문예약/가입 폼 전환수</td><td>신시장 침투</td></tr>
+    </table>
+    <p class="take" style="margin-top:22px;">선행지표는 <span class="hi">재방문율·SEO 오가닉 비중</span> — '가입 건수'(후행)가 아니라 <span class="hi">'관계의 깊이'</span>를 본다.</p>
+    <p class="note">목표 수치는 베이스라인 측정 후 확정. 본 슬라이드는 추적할 지표 체계 제안.</p>
+  </div>
+  <div class="pageno">11 / 12</div>
+</section>
+
+<!-- 12 마무리 -->
+<section class="slide">
+  <div class="topbar">
+    <div class="stepper">
+      <span class="step done"><span class="n">✓</span>현황</span><span class="sep"></span>
+      <span class="step done"><span class="n">✓</span>진단</span><span class="sep"></span>
+      <span class="step done"><span class="n">✓</span>전략</span><span class="sep"></span>
+      <span class="step done"><span class="n">✓</span>실행</span>
+    </div><span class="brandtag">맺음말</span>
+  </div>
+  <div class="lede">맺음말 ｜ 기대효과 & 제언</div>
+  <h1 class="stitle">CPA 수수료 마케터에서 → <span class="i">통신 데이터 플랫폼</span>으로</h1>
+  <div class="body">
+    <div class="row">
+      <div class="col card tint" style="text-align:center;"><div class="big" style="font-size:30px;">리텐션 ↑</div><div class="num-l">7개월 주기 파괴 · LTV 확대</div></div>
+      <div class="col card tint" style="text-align:center;"><div class="big" style="font-size:30px;">CAC ↓</div><div class="num-l">SEO·커뮤니티 오가닉 선점</div></div>
+      <div class="col card tint" style="text-align:center;"><div class="big" style="font-size:30px;">리스크 방어</div><div class="num-l">독점 혜택으로 정책 흔들림 흡수</div></div>
+      <div class="col card tint" style="text-align:center;"><div class="big" style="font-size:30px;">슈퍼앱</div><div class="num-l">MNO·단말로 확장 발판</div></div>
+    </div>
+    <div class="card" style="margin-top:22px;background:var(--ink);border:none;text-align:center;">
+      <p style="color:#fff;font-size:21px;font-weight:800;line-height:1.5;">대기업 자본력에 맞서 모요의 무기는<br><span class="i" style="color:var(--indigo-l)">'통신 전문성'과 '가입 타이밍 데이터'.</span></p>
+    </div>
+    <p class="take" style="text-align:center;margin-top:20px;font-size:20px;">그 무기로 미션을 가속한다 — <span class="hi">"모두에게 통신을 쉽고 정직하게."</span></p>
+  </div>
+  <div class="pageno">12 / 12</div>
+</section>
+
+</div>
+</body>
+</html>
