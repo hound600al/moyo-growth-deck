@@ -59,10 +59,12 @@
   .gloss{background:var(--indigo-bg);border-radius:12px;padding:10px 16px;font-size:13px;color:var(--charcoal);font-weight:600;display:flex;align-items:center;gap:8px;}
   .gloss b{color:var(--indigo-d);font-weight:800;}
 
-  /* COVER (dark) */
-  .cover{padding:0;flex-direction:row;background:radial-gradient(120% 120% at 80% 10%,#1a2156 0%,#0b0f30 55%);}
-  .cover .left{flex:1.18;padding:0 60px;display:flex;flex-direction:column;justify-content:center;z-index:2;}
-  .cover .right{flex:.95;position:relative;}
+  /* COVER (dark + real symbol image) */
+  .cover{padding:0;position:relative;background:#0b0f30;overflow:hidden;}
+  .coverbg{position:absolute;inset:0;background:url("images/moyo-symbol.png") center/cover no-repeat;}
+  .coverscrim{position:absolute;inset:0;background:linear-gradient(90deg,#0b0f30 0%,#0b0f30 33%,rgba(11,15,48,.55) 47%,rgba(11,15,48,0) 66%);}
+  .cover .left{position:relative;z-index:3;width:62%;padding:0 60px;display:flex;flex-direction:column;justify-content:center;height:100%;}
+  .cover .right{display:none;}
   .wordmark{font-size:26px;font-weight:800;letter-spacing:-1px;background:linear-gradient(90deg,#7df9ff,#7aa6ff,#b18cff);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:30px;}
   .cover .eyebrow{font-size:12.5px;font-weight:800;letter-spacing:2.5px;color:#8fa0ff;margin-bottom:18px;}
   .cover h1{font-size:42px;font-weight:800;color:#fff;letter-spacing:-1.6px;line-height:1.34;}
@@ -181,6 +183,8 @@
 
 <!-- 1 COVER (dark + holographic symbols) -->
 <section class="slide cover">
+  <div class="coverbg"></div>
+  <div class="coverscrim"></div>
   <div class="left">
     <div class="wordmark">moyo</div>
     <div class="eyebrow">GROWTH 전략 제안 · 면접 발표</div>
